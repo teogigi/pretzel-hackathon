@@ -76,6 +76,29 @@
 
                     <div class="row">
                         <div class="col-md-6 mb-3">
+                            <label for="email">Email Address</label>
+                            <input type="email" class="form-control" id="email" placeholder="you@example.com" required="">
+                            <div class="invalid-feedback">
+                                Please enter a valid email address.
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="gender">Gender</label>
+                            <select class="custom-select d-block w-100" id="gender" required="">
+                                <option value="">Choose</option>
+                                <option>Male</option>
+                                <option>Female</option>
+                                <option>Prefer not to say</option>
+                            </select>
+                            <div class="invalid-feedback">
+                                Please choose a valid gender.
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
                             <label for="division">Division</label>
                             <select class="custom-select d-block w-100" id="division" required="">
                                 <option value="">Choose</option>
@@ -86,6 +109,9 @@
                                 <option>Investment Banking</option>
                                 <option>Global Markets</option>
                             </select>
+                            <div class="invalid-feedback">
+                                Please choose a valid division.
+                            </div>
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="team">Team</label>
@@ -93,14 +119,6 @@
                             <div class="invalid-feedback">
                                 Valid last team is required.
                             </div>
-                        </div>
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="email">Email Address</label>
-                        <input type="email" class="form-control" id="email" placeholder="you@example.com" required="">
-                        <div class="invalid-feedback">
-                            Please enter a valid email address for updates.
                         </div>
                     </div>
 
@@ -117,6 +135,9 @@
                             <option>Singapore</option>
                             <option>Tokyo</option>
                         </select>
+                        <div class="invalid-feedback">
+                            Please choose a valid office location.
+                        </div>
                     </div>
 
                     <div class="row">
@@ -131,6 +152,9 @@
                                 <option>Managing Director</option>
                                 <option>Others</option>
                             </select>
+                            <div class="invalid-feedback">
+                                Please choose a valid position.
+                            </div>
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="year">Start Year</label>
