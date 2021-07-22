@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="icon" href="https://getbootstrap.com/docs/4.0/assets/img/favicons/favicon.ico">
+    <link rel="icon" href="./Checkout example for Bootstrap_files/hi.png">
 
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
@@ -18,7 +18,7 @@
 
     <!-- (Optional) Latest compiled and minified JavaScript translation files -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/i18n/defaults-*.min.js"></script>
-    <title>Checkout example for Bootstrap</title>
+    <title>Pretzel</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/checkout/">
 
@@ -28,6 +28,53 @@
     <!-- Custom styles for this template -->
     <link href="./Checkout example for Bootstrap_files/form-validation.css" rel="stylesheet">
 
+    <script>
+        // define the callAPI function that takes a first name and last name as parameters
+        var callAPI = (kerberosID,firstName,lastName,email,gender,division,team,location,position,year,outdoors,sports,music,food,gaming,cafe,movies,reading,photography)=>{
+            // instantiate a headers object
+            if(!document.getElementById('kerberosID').checkValidity() || !document.getElementById('firstName').checkValidity() || !document.getElementById('lastName').checkValidity() || !document.getElementById('email').checkValidity() || !document.getElementById('gender').checkValidity() || !document.getElementById('division').checkValidity() || !document.getElementById('team').checkValidity() || !document.getElementById('location').checkValidity() || !document.getElementById('position').checkValidity() || !document.getElementById('year').checkValidity())
+            {alert("Invalid input detected , ensure all fields are filled"); return;}
+
+            if (!(outdoors || sports || music || food || gaming || cafe || movies || reading || photography))
+            {alert("Please select at least one interest!"); return;}
+
+            var myHeaders = new Headers();
+            // add content type header to object
+            myHeaders.append("Content-Type", "application/json");
+            // using built in JSON utility package turn object to string and store in a variable
+            var raw = JSON.stringify({  "kerberosID" : kerberosID,
+                                        "firstName" : firstName,
+                                        "lastName" : lastName,
+                                        "email" : email,
+                                        "gender" : gender,
+                                        "division" : division,
+                                        "team" : team,
+                                        "location" : location,
+                                        "position" : position,
+                                        "year" : year,
+                                        "outdoors" : outdoors,
+                                        "sports" : sports,
+                                        "music" : music,
+                                        "food" : food,
+                                        "gaming" : gaming,
+                                        "cafe" : cafe,
+                                        "movies" : movies,
+                                        "reading" : reading,
+                                        "photography" : photography});
+            // create a JSON object with parameters for API call and store in a variable
+            var requestOptions = {
+                method: 'POST',
+                headers: myHeaders,
+                body: raw,
+                redirect: 'follow'
+            };
+            // make API call with parameters and use promises to get response
+            fetch("https://ml12bjpk48.execute-api.us-east-2.amazonaws.com/dev", requestOptions)
+            .then(response => response.text())
+            .then(result => alert(JSON.parse(result).body))
+            .catch(error => console.log('error', error));
+        }
+    </script>
 
 </head>
 
@@ -45,9 +92,9 @@
                 <h4 class="mb-3">Personal Information</h4>
                 <form class="needs-validation" novalidate="">
                     <div class="mb-3">
-                        <label for="kerberos">Kerberos ID</label>
+                        <label for="kerberosID">Kerberos ID</label>
                         <div class="input-group">
-                            <input type="text" class="form-control" id="kerberos" required="">
+                            <input type="text" class="form-control" id="kerberosID" required="">
                             <!-- <div class="input-group-append">
                                 <button class="btn btn-secondary">Retrieve Details</button>
                             </div> -->
@@ -219,7 +266,8 @@
                         </div>
                     </div>
                     <hr class="mb-4">
-                                <button class="btn btn-primary btn-lg btn-block" type="submit">Submit</button>
+                    <button class="btn btn-primary btn-lg btn-block" type="button" onclick="callAPI(document.getElementById('kerberosID').value,document.getElementById('firstName').value,document.getElementById('lastName').value,document.getElementById('email').value,document.getElementById('gender').value,document.getElementById('division').value,document.getElementById('team').value,document.getElementById('location').value,document.getElementById('position').value,document.getElementById('year').value,document.getElementById('outdoors').checked,document.getElementById('sports').checked,document.getElementById('music').checked,document.getElementById('food').checked,document.getElementById('gaming').checked,document.getElementById('cafe').checked,document.getElementById('movies').checked,document.getElementById('reading').checked,document.getElementById('photography').checked)">Submit</button>
+
                     </form>
                     <footer class="my-5 pt-5 text-muted text-center text-small">
                         <p class="mb-1">© 2021 Pretzel Development Team</p>
