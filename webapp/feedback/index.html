@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<!-- saved from url=(0052)https://getbootstrap.com/docs/4.0/examples/checkout/ -->
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../Checkout example for Bootstrap_files/hi.png">
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
+
+    <!-- (Optional) Latest compiled and minified JavaScript translation files -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/i18n/defaults-*.min.js"></script>
+    <title>Pretzel</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/checkout/">
+
+    <!-- Bootstrap core CSS -->
+    <link href="../Checkout example for Bootstrap_files/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="../Checkout example for Bootstrap_files/form-validation.css" rel="stylesheet">
+
+    <style>
+        .rating1 {
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .rating1 span {
+            float: right;
+            position: relative;
+        }
+
+        .rating1 span input {
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            opacity: 0;
+        }
+
+        .rating1 span label {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            text-align: center;
+            color: #FFF;
+            background: #ccc;
+            font-size: 30px;
+            margin-right: 2px;
+            line-height: 30px;
+            border-radius: 50%;
+            -webkit-border-radius: 50%;
+        }
+
+        .rating1 span:hover~span label,
+        .rating1 span:hover label,
+        .rating1 span.checked label,
+        .rating1 span.checked~span label {
+            background: #F90;
+            color: #FFF;
+        }
+
+        .rating2 {
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .rating2 span {
+            float: right;
+            position: relative;
+        }
+
+        .rating2 span input {
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            opacity: 0;
+        }
+
+        .rating2 span label {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            text-align: center;
+            color: #FFF;
+            background: #ccc;
+            font-size: 30px;
+            margin-right: 2px;
+            line-height: 30px;
+            border-radius: 50%;
+            -webkit-border-radius: 50%;
+        }
+
+        .rating2 span:hover~span label,
+        .rating2 span:hover label,
+        .rating2 span.checked label,
+        .rating2 span.checked~span label {
+            background: #F90;
+            color: #FFF;
+        }
+    </style>
+
+    <script>
+        // define the callAPI function that takes a first name and last name as parameters
+        var callAPI = (kerberosID,chatID,ratingQ1,ratingQ2,restriction,suggestion)=>{
+            // instantiate a headers object
+            if(!document.getElementById('kerberosID').checkValidity() || !document.getElementById('chatID').checkValidity() || ratingQ1 == 0 || ratingQ2 == 0 || !document.getElementById('restriction').checkValidity() || !document.getElementById('suggestion').checkValidity())
+            {alert("Invalid input detected , ensure all fields are filled"); return;}
+
+            var myHeaders = new Headers();
+            // add content type header to object
+            myHeaders.append("Content-Type", "application/json");
+            // using built in JSON utility package turn object to string and store in a variable
+            var raw = JSON.stringify({  "kerberosID" : kerberosID,
+                                        "chatID" : chatID,
+                                        "ratingQ1" : ratingQ1,
+                                        "ratingQ2" : ratingQ2,
+                                        "restriction" : restriction,
+                                        "suggestion" : suggestion});
+            // create a JSON object with parameters for API call and store in a variable
+            var requestOptions = {
+                method: 'POST',
+                headers: myHeaders,
+                body: raw,
+                redirect: 'follow'
+            };
+            // make API call with parameters and use promises to get response
+            fetch("https://obeebms169.execute-api.us-east-2.amazonaws.com/dev", requestOptions)
+            .then(response => response.text())
+            .then(result => alert(JSON.parse(result).body))
+            .catch(error => console.log('error', error));
+        }
+    </script>
+
+</head>
+
+<body class="bg-light">
+
+    <div class="container">
+        <div class="py-5 text-center">
+            <img class="d-block mx-auto mb-4" src="../Checkout example for Bootstrap_files/hi.png" alt="" width="100" height="100">
+            <h2>Pretzel</h2>
+            <p class="lead">Please let us know your feedback for the recent matching! </br>Your feedback will help us match you better in the future.</p>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12 order-md-1">
+                <h4 class="mb-3">Personal Information</h4>
+                <form class="needs-validation" novalidate="">
+                    <div class="mb-3">
+                        <label for="kerberosID">Kerberos ID</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="kerberosID" required="">
+                            <!-- <div class="input-group-append">
+                                <button class="btn btn-secondary">Retrieve Details</button>
+                            </div> -->
+                            <div class="invalid-feedback" style="width: 100%;">
+                                Your kerberos ID is required.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="chatID">Chat ID</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="chatID" required="">
+                            <!-- <div class="input-group-append">
+                                <button class="btn btn-secondary">Retrieve Details</button>
+                            </div> -->
+                            <div class="invalid-feedback" style="width: 100%;">
+                                Your chat ID is required. Please check Slack for the chat ID.
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+                    <h4 class="mb-3">Feedback</h4>
+                    <div>
+                        <label for="rating1">How would you score your group interactions?</label>
+                        <div class="row">
+                            <table width="100%" style="table-layout:fixed">
+                                <tr>
+                                    <td style="text-align:right;width=40%">Poor</td>
+                                    <td style="text-align:center;width=20%">
+                                        <div class="input-group">
+                                            <div class="rating1">
+                                                <span><input type="radio" name="rating1" id="1str5" value="5"><label for="1str5"></label></span>
+                                                <span><input type="radio" name="rating1" id="1str4" value="4"><label for="1str4"></label></span>
+                                                <span><input type="radio" name="rating1" id="1str3" value="3"><label for="1str3"></label></span>
+                                                <span><input type="radio" name="rating1" id="1str2" value="2"><label for="1str2"></label></span>
+                                                <span><input type="radio" name="rating1" id="1str1" value="1"><label for="1str1"></label></span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td style="text-align:left;width=40%">Excellent</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="mb-3 mt-3">
+                        <label for="rating2">How would you rate the suggestions and icebreakers provided by Pretzel?</label>
+                        <div class="row">
+                            <table width="100%" style="table-layout:fixed">
+                                <tr>
+                                    <td style="text-align:right;width=40%">Poor</td>
+                                    <td style="text-align:center;width=20%">
+                                        <div class="input-group">
+                                            <div class="rating2">
+                                                <span><input type="radio" name="rating2" id="2str5" value="5"><label for="2str5"></label></span>
+                                                <span><input type="radio" name="rating2" id="2str4" value="4"><label for="2str4"></label></span>
+                                                <span><input type="radio" name="rating2" id="2str3" value="3"><label for="2str3"></label></span>
+                                                <span><input type="radio" name="rating2" id="2str2" value="2"><label for="2str2"></label></span>
+                                                <span><input type="radio" name="rating2" id="2str1" value="1"><label for="2str1"></label></span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td style="text-align:left;width=40%">Excellent</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+
+
+                    <div class="mb-3 mt-3">
+                        <label for="restriction">Anyone you would not like to be grouped with in the future? Please write their kerberos IDs separated by a comma. <span class="text-muted">(Optional)</span></label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="restriction">
+                        </div>
+                    </div>
+
+                    <div class="mb-3 mt-3">
+                        <label for="suggestion">Any suggestions for Pretzel? <span class="text-muted">(Optional)</span></label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="suggestion">
+                        </div>
+                    </div>
+
+
+                    <hr class="mb-4">
+                    <button class="btn btn-primary btn-lg btn-block" type="button"
+                        onclick="callAPI(document.getElementById('kerberosID').value,document.getElementById('chatID').value,ratingQ1,ratingQ2,document.getElementById('restriction').value,document.getElementById('suggestion').value)">Submit</button>
+
+                </form>
+                <footer class="my-5 pt-5 text-muted text-center text-small">
+                    <p class="mb-1">© 2021 Pretzel Development Team</p>
+
+                </footer>
+            </div>
+
+            <!-- Bootstrap core JavaScript
+    ================================================== -->
+            <!-- Placed at the end of the document so the pages load faster -->
+            <script src="../Checkout example for Bootstrap_files/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+            <script>
+                window.jQuery || document.write('<script src="../../assets/js/vendor/jquery-slim.min.js"><\/script>')
+            </script>
+            <script src="../Checkout example for Bootstrap_files/popper.min.js"></script>
+            <script src="../Checkout example for Bootstrap_files/bootstrap.min.js"></script>
+            <script src="../Checkout example for Bootstrap_files/holder.min.js"></script>
+            <script>
+                // Example starter JavaScript for disabling form submissions if there are invalid fields
+
+                var ratingQ1 = 0;
+                var ratingQ2 = 0;
+
+                (function() {
+                    'use strict';
+
+                    window.addEventListener('load', function() {
+                        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                        var forms = document.getElementsByClassName('needs-validation');
+
+                        // Loop over them and prevent submission
+                        var validation = Array.prototype.filter.call(forms, function(form) {
+                            form.addEventListener('submit', function(event) {
+                                if (form.checkValidity() === false) {
+                                    event.preventDefault();
+                                    event.stopPropagation();
+                                }
+                                form.classList.add('was-validated');
+                            }, false);
+                        });
+                    }, false);
+                })();
+
+
+                $(document).ready(function() {
+                    // Check Radio-box
+                    $(".rating1 input:radio").attr("checked", false);
+
+                    $('.rating1 input').click(function() {
+                        $(".rating1 span").removeClass('checked');
+                        $(this).parent().addClass('checked');
+                    });
+
+                    $(".rating1 input:radio").change(
+                        function() {
+                            var userRating1 = this.value;
+                            ratingQ1 = this.value;
+                            //alert(userRating);
+                        });
+                });
+
+                $(document).ready(function() {
+                    // Check Radio-box
+                    $(".rating2 input:radio").attr("checked", false);
+
+                    $('.rating2 input').click(function() {
+                        $(".rating2 span").removeClass('checked');
+                        $(this).parent().addClass('checked');
+                    });
+
+                    $(".rating2 input:radio").change(
+                        function() {
+                            var userRating2 = this.value;
+                            ratingQ2 = this.value;
+                            //alert(userRating);
+                        });
+                });
+            </script>
+
+
+
+</body>
+
+</html>
