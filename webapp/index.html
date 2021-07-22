@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<!-- saved from url=(0052)https://getbootstrap.com/docs/4.0/examples/checkout/ -->
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="./Checkout example for Bootstrap_files/hi.png">
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
+
+    <!-- (Optional) Latest compiled and minified JavaScript translation files -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/i18n/defaults-*.min.js"></script>
+    <title>Pretzel</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/checkout/">
+
+    <!-- Bootstrap core CSS -->
+    <link href="./Checkout example for Bootstrap_files/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="./Checkout example for Bootstrap_files/form-validation.css" rel="stylesheet">
+
+    <script>
+        // define the callAPI function that takes a first name and last name as parameters
+        var callAPI = (kerberosID,firstName,lastName,email,gender,division,team,location,position,year,outdoors,sports,music,food,gaming,cafe,movies,reading,photography)=>{
+            // instantiate a headers object
+            if(!document.getElementById('kerberosID').checkValidity() || !document.getElementById('firstName').checkValidity() || !document.getElementById('lastName').checkValidity() || !document.getElementById('email').checkValidity() || !document.getElementById('gender').checkValidity() || !document.getElementById('division').checkValidity() || !document.getElementById('team').checkValidity() || !document.getElementById('location').checkValidity() || !document.getElementById('position').checkValidity() || !document.getElementById('year').checkValidity())
+            {alert("Invalid input detected , ensure all fields are filled"); return;}
+
+            if (!(outdoors || sports || music || food || gaming || cafe || movies || reading || photography))
+            {alert("Please select at least one interest!"); return;}
+
+            var myHeaders = new Headers();
+            // add content type header to object
+            myHeaders.append("Content-Type", "application/json");
+            // using built in JSON utility package turn object to string and store in a variable
+            var raw = JSON.stringify({  "kerberosID" : kerberosID,
+                                        "firstName" : firstName,
+                                        "lastName" : lastName,
+                                        "email" : email,
+                                        "gender" : gender,
+                                        "division" : division,
+                                        "team" : team,
+                                        "location" : location,
+                                        "position" : position,
+                                        "year" : year,
+                                        "outdoors" : outdoors,
+                                        "sports" : sports,
+                                        "music" : music,
+                                        "food" : food,
+                                        "gaming" : gaming,
+                                        "cafe" : cafe,
+                                        "movies" : movies,
+                                        "reading" : reading,
+                                        "photography" : photography});
+            // create a JSON object with parameters for API call and store in a variable
+            var requestOptions = {
+                method: 'POST',
+                headers: myHeaders,
+                body: raw,
+                redirect: 'follow'
+            };
+            // make API call with parameters and use promises to get response
+            fetch("https://ml12bjpk48.execute-api.us-east-2.amazonaws.com/dev", requestOptions)
+            .then(response => response.text())
+            .then(result => alert(JSON.parse(result).body))
+            .catch(error => console.log('error', error));
+        }
+    </script>
+
+</head>
+
+<body class="bg-light">
+
+    <div class="container">
+        <div class="py-5 text-center">
+            <img class="d-block mx-auto mb-4" src="./Checkout example for Bootstrap_files/hi.png" alt="" width="100" height="100">
+            <h2>Pretzel</h2>
+            <p class="lead">Sign up now to get matched up with people in the firm! </br>Get to know new people with common interests and make new friends!</p>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12 order-md-1">
+                <h4 class="mb-3">Personal Information</h4>
+                <form class="needs-validation" novalidate="">
+                    <div class="mb-3">
+                        <label for="kerberosID">Kerberos ID</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="kerberosID" required="">
+                            <!-- <div class="input-group-append">
+                                <button class="btn btn-secondary">Retrieve Details</button>
+                            </div> -->
+                            <div class="invalid-feedback" style="width: 100%;">
+                                Your kerberos ID is required.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="firstName">First name</label>
+                            <input type="text" class="form-control" id="firstName" placeholder="" value="" required="">
+                            <div class="invalid-feedback">
+                                Valid first name is required.
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="lastName">Last name</label>
+                            <input type="text" class="form-control" id="lastName" placeholder="" value="" required="">
+                            <div class="invalid-feedback">
+                                Valid last name is required.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="email">Email Address</label>
+                            <input type="email" class="form-control" id="email" placeholder="you@example.com" required="">
+                            <div class="invalid-feedback">
+                                Please enter a valid email address.
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="gender">Gender</label>
+                            <select class="custom-select d-block w-100" id="gender" required="">
+                                <option value="">Choose</option>
+                                <option>Male</option>
+                                <option>Female</option>
+                                <option>Prefer not to say</option>
+                            </select>
+                            <div class="invalid-feedback">
+                                Please choose a valid gender.
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="division">Division</label>
+                            <select class="custom-select d-block w-100" id="division" required="">
+                                <option value="">Choose</option>
+                                <option>Asset Management</option>
+                                <option>Consumer and Wealth Management</option>
+                                <option>Corporate Treasury</option>
+                                <option>Engineering</option>
+                                <option>Investment Banking</option>
+                                <option>Global Markets</option>
+                            </select>
+                            <div class="invalid-feedback">
+                                Please choose a valid division.
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="team">Team</label>
+                            <input type="text" class="form-control" id="team" placeholder="" value="" required="">
+                            <div class="invalid-feedback">
+                                Valid last team is required.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="location">Office Location</label>
+                        <select class="custom-select d-block w-100" id="location" required="">
+                            <option value="">Choose</option>
+                            <option>Beijing</option>
+                            <option>Bengaluru</option>
+                            <option>Hong Kong</option>
+                            <option>London</option>
+                            <option>New York</option>
+                            <option>Shanghai</option>
+                            <option>Singapore</option>
+                            <option>Tokyo</option>
+                        </select>
+                        <div class="invalid-feedback">
+                            Please choose a valid office location.
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="position">Position</label>
+                            <select class="custom-select d-block w-100" id="position" required="">
+                                <option value="">Choose</option>
+                                <option>Summer Analyst</option>
+                                <option>Analyst</option>
+                                <option>Associate</option>
+                                <option>Vice President</option>
+                                <option>Managing Director</option>
+                                <option>Others</option>
+                            </select>
+                            <div class="invalid-feedback">
+                                Please choose a valid position.
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="year">Start Year</label>
+                            <input type="text" class="form-control" id="year" placeholder="" value="" required="">
+                            <div class="invalid-feedback">
+                                Valid start year is required.
+                            </div>
+                        </div>
+                    </div>
+                    <hr class="mb-4">
+
+
+                    <h4 class="mb-3">Interests</h4>
+
+
+                    <div class="d-block my-3">
+                        <label for="hobby">What are your hobbies?</label>
+
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="outdoors">
+                            <label class="custom-control-label" for="outdoors">Outdoors</label>
+                        </div>
+
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="sports">
+                            <label class="custom-control-label" for="sports">Sports</label>
+                        </div>
+
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="music">
+                            <label class="custom-control-label" for="music">Music</label>
+                        </div>
+
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="food">
+                            <label class="custom-control-label" for="food">Food</label>
+                        </div>
+
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="gaming">
+                            <label class="custom-control-label" for="gaming">Gaming</label>
+                        </div>
+
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="cafe">
+                            <label class="custom-control-label" for="cafe">Cafe</label>
+                        </div>
+
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="movies">
+                            <label class="custom-control-label" for="movies">Movies</label>
+                        </div>
+
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="reading">
+                            <label class="custom-control-label" for="reading">Reading</label>
+                        </div>
+
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="photography">
+                            <label class="custom-control-label" for="photography">Photography</label>
+                        </div>
+                    </div>
+                    <hr class="mb-4">
+                    <button class="btn btn-primary btn-lg btn-block" type="button" onclick="callAPI(document.getElementById('kerberosID').value,document.getElementById('firstName').value,document.getElementById('lastName').value,document.getElementById('email').value,document.getElementById('gender').value,document.getElementById('division').value,document.getElementById('team').value,document.getElementById('location').value,document.getElementById('position').value,document.getElementById('year').value,document.getElementById('outdoors').checked,document.getElementById('sports').checked,document.getElementById('music').checked,document.getElementById('food').checked,document.getElementById('gaming').checked,document.getElementById('cafe').checked,document.getElementById('movies').checked,document.getElementById('reading').checked,document.getElementById('photography').checked)">Submit</button>
+
+                    </form>
+                    <footer class="my-5 pt-5 text-muted text-center text-small">
+                        <p class="mb-1">© 2021 Pretzel Development Team</p>
+
+                    </footer>
+            </div>
+
+            <!-- Bootstrap core JavaScript
+    ================================================== -->
+            <!-- Placed at the end of the document so the pages load faster -->
+            <script src="./Checkout example for Bootstrap_files/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+            <script>
+                window.jQuery || document.write('<script src="../../assets/js/vendor/jquery-slim.min.js"><\/script>')
+            </script>
+            <script src="./Checkout example for Bootstrap_files/popper.min.js"></script>
+            <script src="./Checkout example for Bootstrap_files/bootstrap.min.js"></script>
+            <script src="./Checkout example for Bootstrap_files/holder.min.js"></script>
+            <script>
+                // Example starter JavaScript for disabling form submissions if there are invalid fields
+                (function() {
+                    'use strict';
+
+                    window.addEventListener('load', function() {
+                        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                        var forms = document.getElementsByClassName('needs-validation');
+
+                        // Loop over them and prevent submission
+                        var validation = Array.prototype.filter.call(forms, function(form) {
+                            form.addEventListener('submit', function(event) {
+                                if (form.checkValidity() === false) {
+                                    event.preventDefault();
+                                    event.stopPropagation();
+                                }
+                                form.classList.add('was-validated');
+                            }, false);
+                        });
+                    }, false);
+                })();
+            </script>
+
+
+
+</body>
+
+</html>
