@@ -1,5 +1,6 @@
 import pandas as pd
 import numpy as np
+import json
 from sklearn.metrics.pairwise import cosine_similarity
 
 # reading csv FIRST (to be changed)
@@ -131,3 +132,9 @@ while len(unmatched_pairs) > 2:
 
 # add final 2
 groupings[group_number] = list(np.concatenate(unmatched_pairs).flat)
+
+# json (will remove once endpoint set up)
+jsonObject = json.dumps(groupings)
+jsonFile = open("groupings.json", "w")
+jsonFile.write(jsonObject)
+jsonFile.close()
