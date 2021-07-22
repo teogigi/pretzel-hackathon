@@ -2,6 +2,7 @@ import sys
 import logging
 import pymysql
 import os
+import json
  
 # Read mysql connection variables
 rds_host = os.environ['RDS_HOST']
@@ -60,15 +61,20 @@ def lambda_handler(event, context):
     # If exclusion has been entered, increment their exclusionCount
     if exclusion != "":
         excl = [x.strip() for x in exclusion.split(',')]
+        print("Excluding", excl)
         cur_exclusion = conn.cursor()
 
         for exclId in excl:
-            exclusion_select = "Select exclusionCount from {} where id = \"{}\"".format(rds_table_name, id)
-            cur_exclusion.fetchone(exclusion_select)
-            for row in cur_exclusion:
-                update_exclusion_query = "Update {} set exclusionCount = \"{}\" where id = \"{}\"".format(rds_table_name, row["exclusionCount"]+1, id)
+            exclusion_select = "Select exclusionCount from {} where id = \"{}\"".format(rds_table_name, exclId)
+            cur_exclusion.execute(exclusion_select)
+            temp = cur_exclusion.fetchone()
+            update_exclusion_query = "Update {} set exclusionCount = \"{}\" where id = \"{}\"".format(rds_table_name, temp[0]+1, exclId)
+            cur.execute(update_exclusion_query)
 
 
     conn.commit()
-    return "Success"
+    return {
+        'statusCode': 200,
+        'body': json.dumps('Feedback successful for ' + id + ', thank you!')
+    }
     
